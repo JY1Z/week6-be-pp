@@ -104,3 +104,6 @@ module.exports = mongoose.model("User", userSchema);
 // What alternative approaches are available?
 // Service layer: Move the business logic to separate services (e.g., UserService), improving separation of concerns, scalability, and testability.
 // Validation Middleware: Use middleware like express-validator for input validation, keeping models focused on database operations.
+
+// Did you need to make any changes to the tour-related functions? Why or why not?
+// We don't need to change the tour-related code because only the user ID is required in the tour module, and the user ID hasn't changed.
