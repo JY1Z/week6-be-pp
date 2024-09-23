@@ -17,7 +17,8 @@ const getAllTours = async (req, res) => {
 // POST /tours
 const createTour = async (req, res) => {
   try {
-    const newTour = await Tour.create({ ...req.body });
+    const user_id = req.user._id;
+    const newTour = await Tour.create({ ...req.body, user_id });
     res.status(201).json(newTour);
   } catch (error) {
     res.status(400).json({ message: "Failed to create tour", error: error.message });
@@ -33,7 +34,10 @@ const getTourById = async (req, res) => {
   }
 
   try {
-    const tour = await Tour.findById(tourId);
+    const user_id = req.user._id;
+    const tour = await Tour.findById(tourId)
+      .where("user_id")
+      .equals(user_id);
     if (tour) {
       res.status(200).json(tour);
     } else {
@@ -53,8 +57,9 @@ const updateTour = async (req, res) => {
   }
 
   try {
+    const user_id = req.user._id;
     const updatedTour = await Tour.findOneAndUpdate(
-      { _id: tourId },
+      { _id: tourId, user_id: user_id },
       { ...req.body },
       { new: true }
     );
@@ -77,7 +82,11 @@ const deleteTour = async (req, res) => {
   }
 
   try {
-    const deletedTour = await Tour.findOneAndDelete({ _id: tourId });
+    const user_id = req.user._id;
+    const deletedTour = await Tour.findOneAndDelete({ 
+      _id: tourId,
+      user_id: user_id,
+     });
     if (deletedTour) {
       res.status(204).send(); // 204 No Content
     } else {
