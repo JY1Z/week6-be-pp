@@ -27,8 +27,8 @@ beforeAll(async () => {
   const result = await api.post("/api/users/signup").send({
     name: "John Doe",
     email: "john@example.com",
-    password: "password123",
-    phone_number: "1234567890",
+    password: "Gg123456.",
+    phone_number: "+4165771455",
     gender: "Male",
     date_of_birth: "1990-01-01",
     membership_status: "Inactive",
